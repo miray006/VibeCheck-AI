@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from typing import Optional
+import uvicorn
 
 app = FastAPI(title="VibeCheck API")
 
@@ -7,15 +7,10 @@ app = FastAPI(title="VibeCheck API")
 def home():
     return {
         "status": "online",
-        "message": "VibeCheck Backend Motoru Çalışıyor!",
+        "message": "VibeCheck Backend Motoru Calisiyor!",
         "version": "1.0.0"
     }
 
-@app.get("/recommend")
-def get_recommendation(vibe: str, duration: int):
-    # Bu kısım Faz 2'de AI algoritması ile dolacak
-    return {
-        "input_vibe": vibe,
-        "input_duration": duration,
-        "recommendation": "Algoritma geliştirme aşamasında. Çok yakında moduna uygun aktivite burada!"
-    }
+# Uygulamayi dogrudan calistirmak icin gereken blok
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=8000)
