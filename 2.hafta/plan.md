@@ -16,6 +16,7 @@ Bu döküman, VibeCheck MVP'sinin geliştirilme aşamalarını ve teknik iş kı
 - [ ] **Vibe Input Interface:** Kullanıcın modunu seçtiği veya yazdığı ana ekran.
 - [ ] **Result Card (The Golden Ticket):** AI tarafından seçilen tek önerinin görselleştirilmesi.
 - [ ] **Feedback Loop:** Kullanıcının öneriyi puanlayabileceği etkileşim butonları.
+- [ ] ([x] 4. Hafta: Frontend Geliştirme - Tasarım Sistemi, Hareketli Arka Plan ve 15 Farklı Mod Entegrasyonu Tamamlandı 🌈🫧)
 
 ## Faz 4: Test ve Dağıtım
 - [ ] API entegrasyon testleri (Frontend-Backend haberleşmesi).
