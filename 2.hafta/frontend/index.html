@@ -162,7 +162,7 @@
     </div>
 
 <script>
-    async docean function generateVibeFromAI() {
+    async function generateVibeFromAI() {
         const mood = document.getElementById('moodSelect').value;
         const time = document.getElementById('timeSelect').value;
         const resultArea = document.getElementById('resultArea');
@@ -170,16 +170,15 @@
         const sourceText = document.getElementById('sourceText');
         const submitBtn = document.getElementById('submitBtn');
 
-        // Butonu yükleniyor moduna alalım ki kullanıcı yapay zekayı beklediğini anlasın 🧘‍♀️
+        // Butonu yükleniyor moduna alalım
         submitBtn.innerText = "Yapay Zeka Düşünüyor... 🧠✨";
         submitBtn.disabled = true;
 
-        // 🚀 GERÇEK CANLI BACKEND URL'İ 
-        // (Şimdilik lokalde test etmek için localhost:8000, haftaya bunu internet linkine çevireceğiz)
-        const BACKEND_URL = `http://localhost:8000/api/vibe?mood=${mood}&time=${time}`;
+        // 🚀 GERÇEK CANLI BACKEND URL'İ (Buraya az önce çalışan Render linkini bağladık!)
+        const BACKEND_URL = `https://vibecheck-ai-u7xr.onrender.com//api/vibe?mood=${mood}&time=${time}`;
 
         try {
-            // Backend'e istek atıyoruz (Mühendislik Standartlarında Fetch API)
+            // Canlı backend sunucusuna istek atıyoruz
             const response = await fetch(BACKEND_URL);
             
             if (!response.ok) {
@@ -188,14 +187,14 @@
 
             const data = await response.json();
             
-            // Yapay zekadan gelen gerçek yanıtı ekrana yazdırıyoruz
+            // Gelen yanıtı ekrana basıyoruz
             resultText.innerHTML = `🌟 <b>${time} Dakikalık Reçeten:</b><br><br>${data.suggestion}`;
             sourceText.innerText = `⚙️ Motor: ${data.source}`;
             resultArea.style.display = 'block';
 
         } catch (error) {
-            // Eğer backend henüz açık değilse hoca ödevi kontrol ederken sistem boş kalmasın diye B Planı (Fallback)
-            resultText.innerHTML = `🤖 <b>Bağlantı Modu aktif:</b><br><br>Şu an lokal backend kapalı görünüyor ama moral bozmak yok! Kendine güzel bir kahve yap ve <b>${time} dakika</b> boyunca en sevdiğin şarkıyı dinle! 🎵✨`;
+            // Hata durumunda Fallback mekanizması
+            resultText.innerHTML = `🤖 <b>Bağlantı Modu aktif:</b><br><br>Şu an sunucu çok yoğun görünüyor ama moral bozmak yok! Kendine güzel bir kahve yap ve <b>${time} dakika</b> boyunca en sevdiğin şarkıyı dinle! 🎵✨`;
             sourceText.innerText = "⚙️ Mod: Lokal Prototip Simülasyonu";
             resultArea.style.display = 'block';
         } finally {
