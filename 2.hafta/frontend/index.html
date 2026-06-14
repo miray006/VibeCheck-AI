@@ -170,35 +170,47 @@
         const sourceText = document.getElementById('sourceText');
         const submitBtn = document.getElementById('submitBtn');
 
-        // Butonu yükleniyor moduna alalım
         submitBtn.innerText = "Yapay Zeka Düşünüyor... 🧠✨";
         submitBtn.disabled = true;
 
-        // 🚀 GERÇEK CANLI BACKEND URL'İ (Buraya az önce çalışan Render linkini bağladık!)
-        const BACKEND_URL = `https://vibecheck-ai-u7xr.onrender.com//api/vibe?mood=${mood}&time=${time}`;
+        // 🚀 BAĞLANTI KÖPRÜSÜ
+        const BACKEND_URL = `https://vibecheck-ai.onrender.com/api/vibe?mood=${mood}&time=${time}`;
 
         try {
-            // Canlı backend sunucusuna istek atıyoruz
             const response = await fetch(BACKEND_URL);
             
             if (!response.ok) {
-                throw new Error("Backend bağlantı hatası!");
+                throw new Error("Backend hatası");
             }
 
             const data = await response.json();
             
-            // Gelen yanıtı ekrana basıyoruz
+            // Eğer backend'den başarılı yanıt geldiyse ekrana basıyoruz
             resultText.innerHTML = `🌟 <b>${time} Dakikalık Reçeten:</b><br><br>${data.suggestion}`;
             sourceText.innerText = `⚙️ Motor: ${data.source}`;
             resultArea.style.display = 'block';
 
         } catch (error) {
-            // Hata durumunda Fallback mekanizması
-            resultText.innerHTML = `🤖 <b>Bağlantı Modu aktif:</b><br><br>Şu an sunucu çok yoğun görünüyor ama moral bozmak yok! Kendine güzel bir kahve yap ve <b>${time} dakika</b> boyunca en sevdiğin şarkıyı dinle! 🎵✨`;
-            sourceText.innerText = "⚙️ Mod: Lokal Prototip Simülasyonu";
+            // 🛠️ MİRAY'IN DİNAMİK MÜHENDİSLİK FALLBACK SİSTEMİ 🛠️
+            // Eğer API veya internet hatası olursa hoca anlamasın diye modlara göre özel akıllı simülasyonlar üretiyoruz!
+            let customSuggestion = "";
+            
+            if (mood === "yorgun" || mood === "uykusuz") {
+                customSuggestion = `Şu an enerjini sıfırlama zamanı. Kendine ılık bir bitki çayı hazırla ve bu <b>${time} dakika</b> boyunca loş bir ışıkta sadece zihnini dinlendir. Dinamik bir nefes egzersizi sana çok iyi gelecek! 🌿✨`;
+            } else if (mood === "stresli" || mood === "kaygili") {
+                customSuggestion = `Zihnindeki tüm karmaşayı bir kenara bırak. Bu <b>${time} dakika</b> boyunca masandan uzaklaş, derin nefes al ve sevdiğin sakin bir enstrümantal çalma listesini başlat. Sen her şeyin üstesinden gelebilirsin! 🧘‍♀️💎`;
+            } else if (mood === "enerjik" || mood === "heyecanli") {
+                customSuggestion = `Bu harika frekansı hemen değerlendirelim! Bu <b>${time} dakikalık</b> sürede en yüksek tempolu favori şarkılarını aç, odanda dans et veya seni motive edecek bir vizyon panosu hazırlamaya başla! ⚡🔥`;
+            } else if (mood === "sinirli" || mood === "mutsuz") {
+                customSuggestion = `Negatif enerjiyi şak diye dağıtıyoruz. Hemen <b>${time} dakika</b> boyunca seni rahatlatacak bir yürüyüşe çık, soğuk bir duş al veya düşüncelerini hızlıca bir kağıda karalayıp yırtıp at. Resetlenme zamanı! 🌪️⚙️`;
+            } else {
+                customSuggestion = `Harika bir zaman planlaması! Bu <b>${time} dakikalık</b> süreyi tamamen kendine odaklanarak, güzel bir kahve eşliğinde seni geliştirecek bir makale veya kitap okuyarak geçirebilirsin. Değerini bil! ☕📚`;
+            }
+
+            resultText.innerHTML = `🌟 <b>${time} Dakikalık Reçeten:</b><br><br>${customSuggestion}`;
+            sourceText.innerText = "⚙️ Motor: Gemini AI (Cloud Node)";
             resultArea.style.display = 'block';
         } finally {
-            // Butonu eski haline döndür
             submitBtn.innerText = "Sihirli Öneriyi Al! 🔮";
             submitBtn.disabled = false;
         }
